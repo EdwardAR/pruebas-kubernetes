@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: miconfig
+data:
+  MENSAJE: Bienvenidos al curso de Kubernetes
+  PATH: /usr/

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mipod
+  labels:
+    app: dev
+spec:
+  volumes:
+  - name: host-volume
+    hostPath:
+      path: /home/docker/pod-volume
+  containers:
+  - name: mipod
+    image: nginx
+    ports:
+    - containerPort: 80
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: host-volume
