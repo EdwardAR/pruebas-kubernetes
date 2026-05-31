@@ -1,0 +1,20 @@
+{{- if .Values.cronjob.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "mi-chart-bear.fullname" . }}-cronjob
+  labels:
+    {{- include "mi-chart-bear.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.cronjob.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: cronjob
+              image: "{{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}"
+              command:
+                {{- toYaml .Values.cronjob.command | nindent 16 }}
+{{- end }}
